@@ -55,6 +55,7 @@ public class BoardManager : MonoBehaviour
     //Sets up the outer walls and floor (background) of the game board.
     void BoardSetup()
     {
+        /*
         //Instantiate Board and set boardHolder to its transform.
         boardHolder = new GameObject("Board").transform;
         Vector3 floorTileSize = floorTile.GetComponent<Renderer>().bounds.size;
@@ -84,6 +85,7 @@ public class BoardManager : MonoBehaviour
                 instance.transform.SetParent(boardHolder);
             }
         }
+        */
     }
  
 

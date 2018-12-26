@@ -4,22 +4,26 @@ using UnityEngine;
 
 public class LaserDrawer : MonoBehaviour
 {
+    public GameObject laserImpactLight;
     private LineRenderer renderer;
     private float distance = 100;
     int layerMask;
     RaycastHit hit;
-
     // Start is called before the first frame update
     void Start()
     {
+        laserImpactLight = Instantiate(laserImpactLight, new Vector3(0, 0, 0), Quaternion.identity);
+
         renderer = GetComponent<LineRenderer>();
         renderer.startWidth = 0.033f;
         renderer.endWidth = 0.033f;
         renderer.positionCount = 2;
         layerMask = ~(1 << LayerMask.NameToLayer("PlayerLayer"));
+
+        laserImpactLight.SetActive(false);
     }
 
-// Update is called once per frame
+    // Update is called once per frame
     void Update()
     {
         //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -44,9 +48,14 @@ public class LaserDrawer : MonoBehaviour
         if (hit.collider != null)
         {
             renderer.SetPosition(1, hit.point);
-        } else
+            laserImpactLight.transform.position = hit.point;
+            laserImpactLight.SetActive(true);
+
+        }
+        else
         {
             renderer.SetPosition(1, ray.GetPoint(distance));
+            laserImpactLight.SetActive(false);
         }
 
     }

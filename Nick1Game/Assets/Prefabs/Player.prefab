@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7555772373965409683}
   - component: {fileID: 7555772373965409680}
+  - component: {fileID: 3157821466373042913}
   - component: {fileID: 7555772373965409681}
   - component: {fileID: 7555772373965409694}
   - component: {fileID: 7555772373965409695}
@@ -31,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 7555772373965409692}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -73,17 +74,36 @@ SpriteRenderer:
   m_SortingLayerID: 28890763
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d3e2ce04992694047ac64fe55569d945, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c080f7e494f18e6489b565221dcc74cb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.64, y: 2.36}
+  m_Size: {x: 0.3, y: 0.46}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &3157821466373042913
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7555772373965409692}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3e313cd558bcfbe4bbdf37d5ec131bd9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!61 &7555772373965409681
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -101,14 +121,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.64, y: 2.36}
-    newSize: {x: 2.64, y: 2.36}
+    oldSize: {x: 0.3, y: 0.46}
+    newSize: {x: 0.3, y: 0.46}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.64, y: 2.36}
+  m_Size: {x: 0.26, y: 0.44}
   m_EdgeRadius: 0
 --- !u!50 &7555772373965409694
 Rigidbody2D:
@@ -162,7 +182,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 54bf80227d4775047ba15257621d1055, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -192,8 +212,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.25471878
+        time: 0.0040664673
+        value: 0.25471345
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -201,8 +221,17 @@ LineRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.49800798
-        value: 0.2547183
+        time: 0.49394435
+        value: 0.42947733
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.9959283
+        value: 0.2524295
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -261,3 +290,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbf721485862a8947b8ee9230082d24a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  laserImpactLight: {fileID: 2615845621681128840, guid: 931d7c6d77acf674e84a245899e10bb8,
+    type: 3}

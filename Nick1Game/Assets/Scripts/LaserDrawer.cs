@@ -37,9 +37,10 @@ public class LaserDrawer : MonoBehaviour
         //}
 
         Vector2 currMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Ray2D ray = new Ray2D(transform.position, currMousePos);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, currMousePos, Mathf.Infinity, layerMask);
-        renderer.SetPosition(0, transform.position);
+        Vector2 playerPos2D = (Vector2)transform.position;
+        Ray2D ray = new Ray2D(transform.position, currMousePos - playerPos2D);
+        RaycastHit2D hit = Physics2D.Raycast(playerPos2D, currMousePos - playerPos2D, Mathf.Infinity, layerMask);
+        renderer.SetPosition(0, playerPos2D);
         if (hit.collider != null)
         {
             renderer.SetPosition(1, hit.point);
@@ -47,16 +48,6 @@ public class LaserDrawer : MonoBehaviour
         {
             renderer.SetPosition(1, ray.GetPoint(distance));
         }
-        Debug.Log(hit.point);
-
-        //Vector2 currMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //Ray2D ray = new Ray2D(transform.position, currMousePos);
-        //RaycastHit2D hit = Physics2D.Raycast(ray.origin, currMousePos, Mathf.Infinity, layerMask);
-        //renderer.SetPosition(0, transform.position);
-        //if (hit.collider != null)
-        //    renderer.SetPosition(1, hit.point);
-        //else
-        //    renderer.SetPosition(1, ray.GetPoint(distance));
 
     }
 }

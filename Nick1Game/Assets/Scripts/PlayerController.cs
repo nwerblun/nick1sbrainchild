@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-
+    public enum weapons
+    {
+        None,
+        Shotgun
+    };
     private Rigidbody2D rb2d;
-
+    public weapons currWeapon = weapons.None;
     public float speed;
     public float maxSpeed;
     private Animator animator;                  //Used to store a reference to the Player's animator component.

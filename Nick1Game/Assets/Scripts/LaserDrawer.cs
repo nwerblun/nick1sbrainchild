@@ -50,7 +50,6 @@ public class LaserDrawer : MonoBehaviour
             renderer.SetPosition(1, hit.point);
             laserImpactLight.transform.position = hit.point;
             laserImpactLight.SetActive(true);
-
         }
         else
         {

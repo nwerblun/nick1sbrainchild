@@ -14,31 +14,31 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: ForwardWalk
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: LeftWalk
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: RightWalk
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: BackWalk
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -1115,28 +1115,28 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1102662865060791886}
-    m_Position: {x: 480, y: 480, z: 0}
+    m_Position: {x: 96, y: 408, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102143528845451278}
-    m_Position: {x: 228, y: 540, z: 0}
+    m_Position: {x: 96, y: 564, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102494852113261232}
-    m_Position: {x: 516, y: 936, z: 0}
+    m_Position: {x: 96, y: 480, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102757709208619722}
     m_Position: {x: 96, y: 336, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102514760555595850}
-    m_Position: {x: -300, y: 936, z: 0}
+    m_Position: {x: -240, y: 408, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102192231414482458}
-    m_Position: {x: -252, y: 396, z: 0}
+    m_Position: {x: -240, y: 564, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102924386340679418}
-    m_Position: {x: 108, y: 936, z: 0}
+    m_Position: {x: 444, y: 408, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102782641678225082}
-    m_Position: {x: -24, y: 588, z: 0}
+    m_Position: {x: 444, y: 564, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

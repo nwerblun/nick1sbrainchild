@@ -18,7 +18,7 @@ public class LaserDrawer : MonoBehaviour
         renderer.startWidth = 0.033f;
         renderer.endWidth = 0.033f;
         renderer.positionCount = 2;
-        layerMask = ~(1 << LayerMask.NameToLayer("PlayerLayer"));
+        layerMask = ~((1 << LayerMask.NameToLayer("PlayerLayer")) + (1 << LayerMask.NameToLayer("ProjectileLayer")));
 
         laserImpactLight.SetActive(false);
     }

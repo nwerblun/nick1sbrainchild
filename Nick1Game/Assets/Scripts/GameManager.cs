@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     {
         //Call the SetupScene function of the BoardManager script, pass it current level number.
         boardScript.SetupScene();
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("PlayerLayer"), LayerMask.NameToLayer("ProjectileLayer"), true);
 
     }
 

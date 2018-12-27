@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shotgun : MonoBehaviour
+public class Weapons : MonoBehaviour
 {
     public float projectileSpeed = 5f;
     public GameObject bulletPrefab;

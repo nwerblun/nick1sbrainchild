@@ -8,21 +8,24 @@ public class Shotgun : Gun
 
     public Shotgun ()
     {
+        totalAmmo = 0;
+        maxAmmo = 200;
+        clipSize = 12;
+        weaponCategory = Gun.categories.Shotgun;
         bulletSpeed = 5f;
     }
 
     public override Vector2 GetBarrelPos()
     {
+        //Children are always in order so barrel is always 0. Should set up an enum for this.
         GameObject barrel = transform.GetChild(0).gameObject;
         return (Vector2) barrel.transform.position;
     }
 
     public override void Fire(Vector3 dir, Quaternion rot)
     {
-        //Children are always in order so barrel is always 0. Should set up an enum for this.
-        GameObject barrel = transform.GetChild(0).gameObject;
         //rot is a rotation passed in externally controlled by mouse movement.
-        GameObject projectile = Instantiate(bulletPrefab, barrel.transform.position, rot);
+        GameObject projectile = Instantiate(bulletPrefab, GetBarrelPos(), rot);
         //Bullet comes out verical, need it horizontal in addition to the chosen rotation.
         projectile.transform.Rotate(0, 0, -90);
         //Dir is a direction vector passed in externally and controlled by the mouse.

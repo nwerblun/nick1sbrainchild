@@ -12,26 +12,29 @@ public class LaserDrawer : MonoBehaviour
     int layerMask;                              //Which layers to check laser collision on
     RaycastHit hit;                             //Used for determining if laser collides with a body
 
-    void Start()
+    public void Awake()
     {
         enabled = false;
         //This had to be its own class because you can't enable draw halo through code for some reason. Had to make a prefab point light source.
         laserImpactLight = Instantiate(laserImpactLight, new Vector3(0, 0, 0), Quaternion.identity);
+        laserImpactLight.SetActive(false);
+
         laserStartPos = (Vector2)transform.position;
+
         renderer = GetComponent<LineRenderer>();
         renderer.startWidth = 0.033f;
         renderer.endWidth = 0.033f;
         renderer.positionCount = 2;
+        renderer.enabled = false;
         /* Layermasks tell the collision detection enging what layers to check for collision on. There are 32 layers in total
          * and this is stored as a single 32-bit integer. By flipping making bit 0 = 1 then you can check collision on layer 0, etc.
          * We don't want collision on playerlayer or on projectilelayer for the laser. So we want 1111...0...0..1111 where the two 0s are only on
          * those layers and the rest are 1s. The code below bit shifts a 1 into both those locations, then inverts the number so we have 0s on only those layers.
         */
         layerMask = ~((1 << LayerMask.NameToLayer("PlayerLayer")) + (1 << LayerMask.NameToLayer("ProjectileLayer")));
-        laserImpactLight.SetActive(false);
     }
 
-    void LateUpdate()
+    public void Draw(Vector2 start, Vector2 end)
     {
         //External setting which can disable drawing the line + point source.
         if (!enabled)
@@ -44,9 +47,8 @@ public class LaserDrawer : MonoBehaviour
             laserImpactLight.SetActive(true);
         }
 
-        Vector2 currMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //Cast a ray from the players position in the direction of the mouse (subtract player pos to account for shifted origin)
-        Vector2 diff = currMousePos - laserStartPos;
+        //Cast a ray from the start position in the direction of end
+        Vector2 diff = end - start;
 
         Ray2D ray = new Ray2D(transform.position, diff);
         RaycastHit2D hit = Physics2D.Raycast(laserStartPos, diff, Mathf.Infinity, layerMask);

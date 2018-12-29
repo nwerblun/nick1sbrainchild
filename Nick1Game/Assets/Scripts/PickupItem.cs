@@ -14,15 +14,15 @@ public class PickupItem : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D c)
     {
-        //TODO: Add text at the bottom of the screen telling you to "Press [interact] to pick up"
-        if (Input.GetButton("Interact") && c.tag == "Player")
-        {
-            PlayerController pc = c.gameObject.GetComponent<PlayerController>();
-            if (obj.tag == "Weapon")
-            {
-                pc.primaryWeapon = obj;
-            }
-            Destroy(gameObject);
-        }
+
     }
 }
+
+//Idea
+/*Make this class have a sprite, a type and an amount. Type will be an enum with options like
+ * "Health"
+ * "RifleAmmo"
+ * "ShotgunAmmo"
+ * The amount will only matter for some options. In the player class when you collide with a pickup item
+ * You can then get the pickup item's type + amount and do whatever you need to in player. Like if type == health then playerHP += item.amount
+ */

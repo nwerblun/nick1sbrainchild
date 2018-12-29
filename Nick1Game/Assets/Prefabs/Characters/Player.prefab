@@ -13,9 +13,11 @@ GameObject:
   - component: {fileID: 3157821466373042913}
   - component: {fileID: 7555772373965409681}
   - component: {fileID: 7555772373965409694}
-  - component: {fileID: 7555772373965409695}
   - component: {fileID: 5780410981859188406}
-  - component: {fileID: 2230791949324135430}
+  - component: {fileID: 924354452391029148}
+  - component: {fileID: 4184631611099137457}
+  - component: {fileID: 6898535990551138339}
+  - component: {fileID: 4745835338802682931}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -151,21 +153,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &7555772373965409695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7555772373965409692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54d401e32913c5540947ec367040c5db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currWeapon: 0
-  speed: 10
-  maxSpeed: 10
 --- !u!120 &5780410981859188406
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -279,7 +266,21 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &2230791949324135430
+--- !u!114 &924354452391029148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7555772373965409692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54d401e32913c5540947ec367040c5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  maxSpeed: 10
+--- !u!114 &4184631611099137457
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -293,3 +294,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laserImpactLight: {fileID: 2615845621681128840, guid: 931d7c6d77acf674e84a245899e10bb8,
     type: 3}
+  laserStartPos: {x: 0, y: 0}
+  enabled: 0
+--- !u!114 &6898535990551138339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7555772373965409692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1f95713c73521942a224c6059125fc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4745835338802682931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7555772373965409692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a1284422675dbb4788f57866cefa12d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  primaryWeapon: {fileID: 0}
+  secondaryWeapon: {fileID: 0}
+  meleeWeapon: {fileID: 0}
+  rifleAmmo: 0
+  shotgunAmmo: 0
+  pistolAmmo: 0
+  otherGuns: []

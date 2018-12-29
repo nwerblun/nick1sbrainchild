@@ -45,10 +45,11 @@ public class LaserDrawer : MonoBehaviour
         }
 
         Vector2 currMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 playerPos2D = (Vector2)transform.position;
         //Cast a ray from the players position in the direction of the mouse (subtract player pos to account for shifted origin)
-        Ray2D ray = new Ray2D(transform.position, currMousePos - playerPos2D);
-        RaycastHit2D hit = Physics2D.Raycast(playerPos2D, currMousePos - playerPos2D, Mathf.Infinity, layerMask);
+        Vector2 diff = currMousePos - laserStartPos;
+
+        Ray2D ray = new Ray2D(transform.position, diff);
+        RaycastHit2D hit = Physics2D.Raycast(laserStartPos, diff, Mathf.Infinity, layerMask);
         //Set the first of two points of the line renderer's draw points.
         renderer.SetPosition(0, laserStartPos);
         //Check if the ray hits anything.

@@ -116,7 +116,6 @@ public class PlayerController : MonoBehaviour {
             * the time difference between previous frames (Time.deltaTime) and update the current position to the desired position via interpolation. A possible other option that
             * didn't work for me is to use void LateUpdate() which happens after Update() and is for when things changing during update can cause other things to be affected.
         */
-        laser.enabled = false;
         //Get the space offset from the gun to its barrel
         Vector2 wepToBarrelOffset = wepBarrel.transform.position - wep.transform.position;
         //Linearly interpolate the weapon to the player position

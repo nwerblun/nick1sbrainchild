@@ -11,10 +11,16 @@ public class Shotgun : Gun
         bulletSpeed = 5f;
     }
 
+    public override Vector2 GetBarrelPos()
+    {
+        GameObject barrel = transform.GetChild(0).gameObject;
+        return (Vector2) barrel.transform.position;
+    }
+
     public override void Fire(Vector3 dir, Quaternion rot)
     {
         //Children are always in order so barrel is always 0. Should set up an enum for this.
-        GameObject barrel = transform.GetChild(0).gameObject; 
+        GameObject barrel = transform.GetChild(0).gameObject;
         //rot is a rotation passed in externally controlled by mouse movement.
         GameObject projectile = Instantiate(bulletPrefab, barrel.transform.position, rot);
         //Bullet comes out verical, need it horizontal in addition to the chosen rotation.

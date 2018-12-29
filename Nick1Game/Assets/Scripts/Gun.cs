@@ -14,16 +14,17 @@ public abstract class Gun : MonoBehaviour
 
     //dir controls where the projectile goes off to, rot is how much to rotate the sprite by.
     public abstract void Fire(Vector3 dir, Quaternion rot);
+    public abstract Vector2 GetBarrelPos();
     public abstract void Reload();
 
     void Update()
     {
         if (Input.GetButton("Fire1"))
         {
-            Vector2 currMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 currGunPos = transform.position;
+            Vector2 currMousePos = (Vector2) Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 currBarrelPos = GetBarrelPos();
             Quaternion rotation = transform.rotation;
-            Fire(currMousePos - currGunPos, rotation);
+            Fire(currMousePos - currBarrelPos, rotation);
         }
     }
 

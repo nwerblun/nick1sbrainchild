@@ -70,7 +70,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3632867510784833325}
   - component: {fileID: 3632867510784833324}
-  - component: {fileID: 6275206337221030107}
   - component: {fileID: 5372581710219164519}
   m_Layer: 10
   m_Name: Shotgun
@@ -87,7 +86,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3632867510784833323}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 2.4150221, y: -0.8217223, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1601309453678490442}
@@ -131,7 +130,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 28890763
   m_SortingLayer: 2
-  m_SortingOrder: -1
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300018, guid: ff3037c86cfa47a4aa9fe647ad1526cc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -143,32 +142,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &6275206337221030107
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3632867510784833323}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.1, y: 0.42}
-    newSize: {x: 1.68, y: 0.72}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.1, y: 0.42}
-  m_EdgeRadius: 0
 --- !u!114 &5372581710219164519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,5 +154,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f608a284fd69864a96701213eccf6b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeed: 5
-  bulletPrefab: {fileID: 0}
+  bulletSpeed: 5
+  accuracy: 0
+  bulletsPerShot: 0
+  reloadSpeed: 0
+  clipSize: 0
+  damage: 0
+  knockBack: 0
+  bulletPrefab: {fileID: 8805289394669338046, guid: 3f401b7b13c332f4a8f68add40141c32,
+    type: 3}

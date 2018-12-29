@@ -7,13 +7,16 @@ public class LaserDrawer : MonoBehaviour
     public GameObject laserImpactLight;
     private LineRenderer renderer;
     private float distance = 100;
+    public Vector2 laserStartPos;
+    public bool enabled;
     int layerMask;
     RaycastHit hit;
     // Start is called before the first frame update
     void Start()
     {
+        enabled = false;
         laserImpactLight = Instantiate(laserImpactLight, new Vector3(0, 0, 0), Quaternion.identity);
-
+        laserStartPos = (Vector2)transform.position;
         renderer = GetComponent<LineRenderer>();
         renderer.startWidth = 0.033f;
         renderer.endWidth = 0.033f;
@@ -23,28 +26,23 @@ public class LaserDrawer : MonoBehaviour
         laserImpactLight.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //renderer.SetPosition(0, transform.position);
-        //if (Physics.Raycast(ray, out hit, distance))
-        //{
-        //    Debug.Log("Collide");
-        //    renderer.SetPosition(1, hit.point + hit.normal);
-        //}
-        //else
-        //{
-        //    Debug.Log("True");
-        //    Debug.Log(ray.GetPoint(distance));
-        //    renderer.SetPosition(1, ray.GetPoint(distance));
-        //}
+        if (!enabled)
+        {
+            renderer.enabled = false;
+            laserImpactLight.SetActive(false);
+            return;
+        } else {
+            renderer.enabled = true;
+            laserImpactLight.SetActive(true);
+        }
 
         Vector2 currMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 playerPos2D = (Vector2)transform.position;
         Ray2D ray = new Ray2D(transform.position, currMousePos - playerPos2D);
         RaycastHit2D hit = Physics2D.Raycast(playerPos2D, currMousePos - playerPos2D, Mathf.Infinity, layerMask);
-        renderer.SetPosition(0, playerPos2D);
+        renderer.SetPosition(0, laserStartPos);
         if (hit.collider != null)
         {
             renderer.SetPosition(1, hit.point);

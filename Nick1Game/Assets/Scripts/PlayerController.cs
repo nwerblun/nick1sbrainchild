@@ -5,15 +5,15 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     private Rigidbody2D rb2d;
-    public GameObject primaryWeapon;
-    public float speed;
-    public float maxSpeed;
+    public GameObject primaryWeapon;            //Will be a weapon prefab
+    public float speed;                         //Used to control player movement
+    public float maxSpeed;                      //Absolute max player movement
 
-    private float lerpSpeed = 100f;
-    private LaserDrawer laser;
-    private Animator animator;                  //Used to store a reference to the Player's animator component.
-    private bool primaryCreated = false;
-    private enum weaponTypes
+    private float lerpSpeed = 100f;             //Used to control the update frequency of the linear interpolation of movement
+    private LaserDrawer laser;                  //Reference to the laser drawing class to enable/disable it
+    private Animator animator;                  //Used to store a reference to the Player's animator component
+    private bool primaryCreated = false;        //Used to determine if the primary weapon has been instantiated
+    private enum weaponTypes                    //Enum to avoid having to use strings or integers
     {
         None,
         Primary,
@@ -25,9 +25,9 @@ public class PlayerController : MonoBehaviour {
     private void Start()
     {
         laser = GetComponent<LaserDrawer>();
-        equippedWeaponType = weaponTypes.Primary;
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        equippedWeaponType = weaponTypes.Primary;
     }
 
     void Update()
@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
+        //----------ANIMATION CONTROL TRIGGERS----------//
+        //Determine based on input direction which way we're moving to set animation triggers.
         if (moveHorizontal == 0 && moveVertical == 0)
         {
             animator.SetTrigger("StopInput");
@@ -54,58 +56,74 @@ public class PlayerController : MonoBehaviour {
         else if (moveVertical < 0) {
             animator.SetTrigger("BackWalk");
         }
+        //----------ANIMATION CONTROL TRIGGERS----------//
+
 
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
 
         movement = movement * speed;
         rb2d.velocity = new Vector2(Mathf.Clamp(movement.x, -maxSpeed, maxSpeed), Mathf.Clamp(movement.y, -maxSpeed, maxSpeed));
 
-        if (!primaryCreated && primaryWeapon != null)
-        {
-            primaryWeapon = Instantiate(primaryWeapon, transform.position, Quaternion.identity);
-            bool activate = (equippedWeaponType == weaponTypes.Primary) ? true : false;
-            primaryWeapon.SetActive(activate);
-            primaryCreated = true;
-        }
-
+        //Final step, draw the weapon
+        CheckWeaponInstantiation();
         RenderWeapon();
     }
 
-    void LateUpdate()
-    {
 
+    void CheckWeaponInstantiation()
+    {
+        if (!primaryCreated && primaryWeapon != null)
+        {
+            primaryWeapon = Instantiate(primaryWeapon, transform.position, Quaternion.identity);
+            primaryCreated = true;
+        }
+        //TODO: Add other cases here
     }
+
 
     void RenderWeapon()
     {
+        GameObject wep;
+        //Check if player doesn't have a weapon equipped, if so, do nothing and make sure all drawing is off.
         if (equippedWeaponType == weaponTypes.None)
         {
             laser.enabled = false;
+            primaryWeapon.SetActive(false);
+            //TODO: Add secondary + maybe melee here when done.
             return;
-        }
-
-        if(equippedWeaponType == weaponTypes.Primary && primaryCreated)
-        {
+        } else if (equippedWeaponType == weaponTypes.Primary && primaryCreated) {
             laser.enabled = true;
-            //Gets the barrel subobject from the primary and then gets its transform->position
-            Vector2 currMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 currPlayerPos = transform.position;
-            Vector2 diff = currMousePos - currPlayerPos;
-
-            //
-            float angle = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-            primaryWeapon.transform.rotation = Quaternion.Euler(0, 0, angle);
-
-            /* Player/projectiles are moved by adding a velocity so this doesn't apply. Whenever you move an object by directly changing its position, 
-             * you have to account for the fact that update/fixed update don't happen in perfect intervals and will mess up with non-constant frame rate.
-             * The laser didn't accurately track the shotgun's movement when I just updated coordinates exactly. The fix is to linearly interpolate the position by using
-             * the time difference between previous frames (Time.deltaTime) and update the current position to the desired position via interpolation. 
-             */
-            primaryWeapon.transform.position = Vector3.Lerp(primaryWeapon.transform.position, transform.position, Time.deltaTime * lerpSpeed);
-            laser.laserStartPos = Vector3.Lerp(laser.laserStartPos, primaryWeapon.transform.GetChild(0).transform.position, Time.deltaTime * lerpSpeed);
-            return;
+            primaryWeapon.SetActive(true);
+            //secondayWeapon.SetActive(false);
+            //meleeWeapon.SetActive(false);
+            wep = primaryWeapon;
+        }
+        else if (equippedWeaponType == weaponTypes.Secondary) { //Needs && secondaycreated like above
+            laser.enabled = true;
+            //SetActives for everything here
+        } else { //Will always have melee I think, no need to check
+            //Melee case?
+            laser.enabled = false;
         }
 
+        //-------------------------------------------------------------------------//
+        //Need to take vector difference to account for the fact that the player moving shifts the origin
+        Vector2 currMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 currPlayerPos = transform.position;
+        Vector2 diff = currMousePos - currPlayerPos;
+        //Compute rotation angle from x-axis of the mouse relative to the player
+        float angle = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+        wep.transform.rotation = Quaternion.Euler(0, 0, angle);
 
+        /* Player/projectiles are moved by adding a velocity so this doesn't apply. Whenever you move an object by directly changing its position, 
+            * you have to account for the fact that update/fixed update don't happen in perfect intervals and will mess up with non-constant frame rate.
+            * The laser didn't accurately track the shotgun's movement when I just updated coordinates exactly. The fix is to linearly interpolate the position by using
+            * the time difference between previous frames (Time.deltaTime) and update the current position to the desired position via interpolation. A possible other option that
+            * didn't work for me is to use void LateUpdate() which happens after Update() and is for when things changing during update can cause other things to be affected.
+        */
+        //By doing this I am assuming barrel is always the first. We can change it to get child by name or whatever later on.
+        Vector3 wep_barrel = wep.transform.GetChild(0).transform.position;
+        wep.transform.position = Vector3.Lerp(wep.transform.position, transform.position, Time.deltaTime * lerpSpeed);
+        laser.laserStartPos = Vector3.Lerp(laser.laserStartPos, wep_barrel, Time.deltaTime * lerpSpeed);
     }
 }

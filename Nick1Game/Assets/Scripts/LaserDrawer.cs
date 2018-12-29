@@ -4,30 +4,36 @@ using UnityEngine;
 
 public class LaserDrawer : MonoBehaviour
 {
-    public GameObject laserImpactLight;
-    private LineRenderer renderer;
-    private float distance = 100;
-    public Vector2 laserStartPos;
-    public bool enabled;
-    int layerMask;
-    RaycastHit hit;
-    // Start is called before the first frame update
+    public GameObject laserImpactLight;         //A point light used to give a faint glow when hitting a surface
+    private LineRenderer renderer;              //The line renderer used to draw the laser
+    private float distance = 100;               //How far to render the laser
+    public Vector2 laserStartPos;               //Where to start the laser
+    public bool enabled;                        //Whether or not to draw the laser + point light source
+    int layerMask;                              //Which layers to check laser collision on
+    RaycastHit hit;                             //Used for determining if laser collides with a body
+
     void Start()
     {
         enabled = false;
+        //This had to be its own class because you can't enable draw halo through code for some reason. Had to make a prefab point light source.
         laserImpactLight = Instantiate(laserImpactLight, new Vector3(0, 0, 0), Quaternion.identity);
         laserStartPos = (Vector2)transform.position;
         renderer = GetComponent<LineRenderer>();
         renderer.startWidth = 0.033f;
         renderer.endWidth = 0.033f;
         renderer.positionCount = 2;
+        /* Layermasks tell the collision detection enging what layers to check for collision on. There are 32 layers in total
+         * and this is stored as a single 32-bit integer. By flipping making bit 0 = 1 then you can check collision on layer 0, etc.
+         * We don't want collision on playerlayer or on projectilelayer for the laser. So we want 1111...0...0..1111 where the two 0s are only on
+         * those layers and the rest are 1s. The code below bit shifts a 1 into both those locations, then inverts the number so we have 0s on only those layers.
+        */
         layerMask = ~((1 << LayerMask.NameToLayer("PlayerLayer")) + (1 << LayerMask.NameToLayer("ProjectileLayer")));
-
         laserImpactLight.SetActive(false);
     }
 
     void LateUpdate()
     {
+        //External setting which can disable drawing the line + point source.
         if (!enabled)
         {
             renderer.enabled = false;
@@ -40,17 +46,23 @@ public class LaserDrawer : MonoBehaviour
 
         Vector2 currMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 playerPos2D = (Vector2)transform.position;
+        //Cast a ray from the players position in the direction of the mouse (subtract player pos to account for shifted origin)
         Ray2D ray = new Ray2D(transform.position, currMousePos - playerPos2D);
         RaycastHit2D hit = Physics2D.Raycast(playerPos2D, currMousePos - playerPos2D, Mathf.Infinity, layerMask);
+        //Set the first of two points of the line renderer's draw points.
         renderer.SetPosition(0, laserStartPos);
+        //Check if the ray hits anything.
         if (hit.collider != null)
         {
+            //If it hits, then set the end draw point of the line to where it collided
             renderer.SetPosition(1, hit.point);
+            //Set the point light to the same collision point and turn it on
             laserImpactLight.transform.position = hit.point;
             laserImpactLight.SetActive(true);
         }
         else
         {
+            //No hit. Take the ray that was cast out, go along it by distance and get that point.
             renderer.SetPosition(1, ray.GetPoint(distance));
             laserImpactLight.SetActive(false);
         }
